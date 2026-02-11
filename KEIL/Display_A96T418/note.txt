@@ -1,0 +1,3 @@
+VER102 : 211125
+	- API 추가 : TS_Set_VHS(), TS_Set_Frequency(), TS_Set_Freq_Shift()
+	- TS_Make_Data() 함수 수정 : 주파수 선택 알고리즘 개선 - abs(delta[x]) 5회 누적값 으로 판단 

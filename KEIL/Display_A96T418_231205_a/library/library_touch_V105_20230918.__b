@@ -1,0 +1,3 @@
+TRANSFER
+"..\..\library\touch_lib.obj" 
+TO "..\..\library\library_touch_V105_20230918.LIB"
