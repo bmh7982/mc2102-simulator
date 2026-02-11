@@ -1,3 +1,7 @@
-#
-out\
-lst\
+# Keil uVision 프로젝트 관련
+*.uvopt
+*.uvgui.*
+
+# 출력 디렉토리 (예: Objects, Listings)
+list/
+out/
