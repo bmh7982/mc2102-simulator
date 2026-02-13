@@ -187,3 +187,15 @@ Use `data`, `idata`, `xdata`, `code` memory modifiers appropriately for the 8051
 - SFR access uses direct register names (P0, P1, IE, etc.) from `A96T418.h`
 - Macros use do-while(0) pattern for safe expansion
 - Korean comments are present in legacy code (primarily in `proc.c`)
+
+## File Encoding
+
+**CRITICAL:** All source files in this project use **EUC-KR (Korean)** encoding due to Korean comments in the codebase.
+
+**When editing or creating files:**
+- ALWAYS preserve EUC-KR encoding when modifying existing files
+- Korean comments must be readable in KEIL μVision IDE (EUC-KR compatible)
+- Do NOT convert files to UTF-8, as this will cause display issues in KEIL IDE
+- If you cannot preserve the encoding, leave Korean comments unchanged and add English comments separately
+
+**Note:** Some tools may display Korean characters incorrectly if not configured for EUC-KR. This is expected and does not indicate file corruption.

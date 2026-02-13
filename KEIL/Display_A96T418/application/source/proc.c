@@ -53,8 +53,8 @@ unsigned int  DIMM;
 unsigned char Dimming_cnt; 
 unsigned char SEGMENTS;
 
-//const int DIMMING[] = {56, 52, 48, 44, 40, 16, 8, 4};	//Dimming Pulse - ¾Õ¿¡¼­ ºÎÅÍ ¹à±â ³ôÀº °Í.
-const int DIMMING[] = {4, 8, 16, 40, 44, 48, 52, 56};	//Dimming Pulse - ¾Õ¿¡¼­ ºÎÅÍ ¹à±â ³ôÀº °Í.
+//const int DIMMING[] = {56, 52, 48, 44, 40, 16, 8, 4};	//Dimming Pulse - ï¿½Õ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
+const int DIMMING[] = {4, 8, 16, 40, 44, 48, 52, 56};	//Dimming Pulse - ï¿½Õ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 
 void Display_off(void){
 	//P0
@@ -80,8 +80,8 @@ void Display_off(void){
 	LED_COCK4_off();		//P31
 }
 
-// »ç¿ëÇÏÁö ¾Ê´Â led ·¹Áö½ºÅÍ´Â ¸·¾Æ³ù¾î¿ä. 
-// ÇÊ¿äÇÏ½Å ºÎºĞÀº »ç¿ëÇÏ½Ã¸é µÉ °Í °°¾Æ¿ä.
+// ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” led ë ˆì§€ìŠ¤í„°ëŠ” ë§‰ì•„ë†¨ì–´ìš”. 
+// í•„ìš”í•˜ì‹  ë¶€ë¶„ì€ ì‚¬ìš©í•˜ì‹œë©´ ë  ê²ƒ ê°™ì•„ìš”.
 void subDisplay(void){
 	if(Display_stat==Display_OFF){Display_off(); return;}
 	
@@ -196,11 +196,11 @@ void subDisplay(void){
 	else{
 		Display_off();							//LED off
 		
-		if(Dimming_cnt>56){Dimming_cnt=0;}		//Dimming cnt ÃÊ±âÈ­
+		if(Dimming_cnt>56){Dimming_cnt=0;}		//Dimming cnt ï¿½Ê±ï¿½È­
 	}
 }
 
-//ÀÌ ÇÁ·Î±×·¥¿¡¼­´Â command 1ÀÇ GRID¶û SEGMENTS´Â ¼³ÀúÇÏ´Â °ÍÀÌ ÀÇ¹Ì°¡ ¾ø´Ù.
+//ì´ í”„ë¡œê·¸ë¨ì—ì„œëŠ” command 1ì˜ GRIDë‘ SEGMENTSëŠ” ì„¤ì €í•˜ëŠ” ê²ƒì´ ì˜ë¯¸ê°€ ì—†ë‹¤.
 void command1(void){
 	 if((command & 0x3C) != 0x00){return;}
 	 
@@ -208,7 +208,7 @@ void command1(void){
 	 SEGMENTS = (command & 0x03) + 7;
 }
 
-//Command2´Â read, write »óÅÂ°¡ º¯°æµÉ ¶§ DIO PIN ¼³Á¤À» º¯°æÇØ Áà¾ßµÊ.
+//Command2ëŠ” read, write ìƒíƒœê°€ ë³€ê²½ë  ë•Œ DIO PIN ì„¤ì •ì„ ë³€ê²½í•´ ì¤˜ì•¼ë¨.
 void command2(void){
 	if((command & 0x38) != 0x00){return;}
 				
@@ -216,16 +216,16 @@ void command2(void){
 	else                        {AdderssMODE = IAADHBW;}
 		
 	if     ((command & 0x03) == 0x00){
-		wrmode = WRITE_MODE; 
-		Port_SetInputpin(PORT0,PIN5, 0);
+		wrmode = WRITE_MODE;
+		Port_SetInputpin(PORT2,PIN7, 0);
 	}
 	else if((command & 0x03) == 0x02){
-		wrmode = READ_MODE; 
-		Port_SetOutputpin(PORT0,PIN5, 0);
+		wrmode = READ_MODE;
+		Port_SetOutputpin(PORT2,PIN7, 0);
 	}
 }
 
-//¸¸¾à Addr¸¦ ¼³Á¤ÇÏ°í Data¸¦ Àü¼ÛÇÑ´Ù¸é ADDR[0]¿¡ Address¸¦ ³Ö¾îÁÖ¸é µÅ¿ä.
+//ë§Œì•½ Addrë¥¼ ì„¤ì •í•˜ê³  Dataë¥¼ ì „ì†¡í•œë‹¤ë©´ ADDR[0]ì— Addressë¥¼ ë„£ì–´ì£¼ë©´ ë¼ìš”.
 void command3(void){
 	if((command & 0x30) == 0x00){
 		Address = (command & 0x0F);
@@ -234,8 +234,8 @@ void command3(void){
 	}
 }
 
-//Dimming ¼³Á¤ÀÌ¶û Display ON/OFF ¼³Á¤
-//DimmingÀº ÃÊ±â¿¡ 10/16·Î ¼³Á¤µÇ¾î ÀÖÀ½
+//Dimming ì„¤ì •ì´ë‘ Display ON/OFF ì„¤ì •
+//Dimmingì€ ì´ˆê¸°ì— 10/16ë¡œ ì„¤ì •ë˜ì–´ ìˆìŒ
 void command4(void){
 	if((command & 0x08) == 0x08){
 		Display_stat=Display_ON;
@@ -268,14 +268,14 @@ int proc_key(void){
 }
 
 void proc(void){
-	//key µ¿ÀÛ 
+	//key ï¿½ï¿½ï¿½ï¿½ 
 	if(bit_key_oper ==1){
 		bit_key_oper=0;
 		
 		proc_key();
 		
-		//Áßº¹ key »ç¿ëÇÏ½Ç °Å¸é else if¿¡¼­ if·Î º¯°æÇÏ½Ã¸é µË´Ï´ç.
-			 if(key_amount)		{key_amount=0;		DOUT[0] |= 0x80; b_rksd=1;}
+		//ì¤‘ë³µ key ì‚¬ìš©í•˜ì‹¤ ê±°ë©´ else ifì—ì„œ ifë¡œ ë³€ê²½í•˜ì‹œë©´ ë©ë‹ˆë‹¹.
+		if     (key_amount)		{key_amount=0;		DOUT[0] |= 0x80; b_rksd=1;}
 		else if(key_hot)		{key_hot=0;			DOUT[0] |= 0x40; b_rksd=1;}
 		else if(key_cold)		{key_cold=0;		DOUT[1] |= 0x80; b_rksd=1;}
 		else if(key_pwr_saving)	{key_pwr_saving=0;	DOUT[1] |= 0x40; b_rksd=1;}
@@ -312,7 +312,7 @@ void proc(void){
 		//eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 	}
 	
-	//Display µ¿ÀÛ 
+	//Display ï¿½ï¿½ï¿½ï¿½ 
 	if(b_timer1==1){
 		b_timer1=0; 
 		subDisplay();

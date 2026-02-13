@@ -44,7 +44,7 @@ bit g_i2c_flag = 0;
 
 struct sys_flag g_sys_flag;
 
-//sgÃß°¡---------------------------------------------------
+//sgï¿½ß°ï¿½---------------------------------------------------
 
 unsigned char DataIN;
 unsigned char DataINcnt=0;
@@ -66,8 +66,8 @@ unsigned char Add;
 //======================================================
 // interrupt routines
 //======================================================
-//CLK PIN --> STB°¡ LOW ÀÏ ¶§ DIN, OUT ÇÏ´Â °ÅÀÓ
-//DINÀÏ ¶§´Â CLK°¡ HIGH ÀÏ ¶§ ÇÏ´Â °ÍÀÌ°í, DOUTÀº CLK°¡ LOWÀÏ ¶§ ÇÏ´Â °ÅÀÓ.
+//CLK PIN --> STBï¿½ï¿½ LOW ï¿½ï¿½ ï¿½ï¿½ DIN, OUT ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
+//DINï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ CLKï¿½ï¿½ HIGH ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½, DOUTï¿½ï¿½ CLKï¿½ï¿½ LOWï¿½ï¿½ ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½.
 void INT_Ext10() interrupt 0
 {
 //	int i;
@@ -83,15 +83,15 @@ void INT_Ext10() interrupt 0
 				if(DataINcnt >= 8){
 					DataINcnt = 0;
 					DIN[dincnt] = DataIN;
-					dincnt++;    //26.02.11 dincnt°¡ over flowÇÒ °¡´É¼ºÀ¸ °ËÅäÇÒ °Í
+					dincnt++;    //26.02.11 dincntï¿½ï¿½ over flowï¿½ï¿½ ï¿½ï¿½ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					DataIN = 0;
 				}
 			}
 		}
 		else{
-			wrmode = WRITE_MODE; Port_SetInputpin(PORT0,PIN5, 0);
+			wrmode = WRITE_MODE; Port_SetInputpin(PORT2,PIN7, 0);
 /*			if(!IS_CLK()){
-				//key scan mode µÇ°í µé¾î¿Í¼­ 1~6byte±îÁö Àü¼Û
+				//key scan mode ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½Í¼ï¿½ 1~6byteï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if(b_rksd==1){
 					b_rksd=0;
 					if(doutcnt <= 5){
@@ -301,7 +301,7 @@ void Init_User_Function(void)
 #endif
         
 
-//SG Ãß°¡ =================================
+//SG ï¿½ß°ï¿½ =================================
 
 	Timer1_init();
 	Timer2_init();
@@ -350,7 +350,7 @@ void main(void)
                     ts.flag.touch_sensing_end = 0;
                 }
 #endif
-				//<26.02.11> breal °¡ ÇÊ¿äÇÑÁö °ËÅäÇÒ °Í   
+				//<26.02.11> breal ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½   
             case TASK_GESTURE :
 #if (SLIDE_FUNCTION_EN | WHEEL_FUNCTION_EN)
                 GESTURE_Do_Task(&diff_data[0]);
